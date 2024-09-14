@@ -26,7 +26,7 @@ jobs:
           
     - name: Push to Hugging Face
       env:
-        HF_TOKEN: ${{ secrets.HF_TOKEN_LOCALVERSION }}
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
         git remote add hf https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/mlops-cs553-fall24/Local-Chatbot
         git push hf main --force
