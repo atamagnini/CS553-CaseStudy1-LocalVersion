@@ -1,0 +1,24 @@
+name: Push to Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main  # Trigger this action on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v3
+
+    - name: Install Git LFS (Large File Support)
+      run: git lfs install
+
+    - name: Push to Hugging Face
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+      run: |
+        git remote add hf https://user:${{ secrets.HF_TOKEN }}@huggingface.co/spaces/mlops-cs553-fall24/Local-Chatbot
+        git push hf main
