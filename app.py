@@ -4,9 +4,7 @@ from transformers import pipeline
 
 # Initialize the local pipeline for the model
 pipe = pipeline("text-generation", model="microsoft/Phi-3-mini-4k-instruct", torch_dtype=torch.bfloat16, device_map="auto")
-# You can choose another model if needed, and adjust parameters as necessary
 
-# Define the response function for local execution
 def respond(
     message,
     history: list[tuple[str, str]],
@@ -27,7 +25,7 @@ def respond(
 
     response = ""
 
-    # Use the local pipeline to generate text
+    # Use local pipeline to gen text
     for message in pipe(
         messages,
         max_new_tokens=max_tokens,
@@ -39,7 +37,7 @@ def respond(
         response += token
         yield response
 
-# Custom CSS for styling the header and logo
+# Custom CSS for  header and logo
 custom_css = """
 #header {
     display: flex;
@@ -57,7 +55,7 @@ custom_css = """
 }
 """
 
-# Gradio interface with additional components and a funny subtitle
+# Gradio interface
 demo = gr.ChatInterface(
     respond,
     title="<div id='header'><h1>Bee Chatbot</h1><img id='logo' src='https://raw.githubusercontent.com/atamagnini/mlops-cs553-fall24/main/assets/logo.png'></div>",
